@@ -48,6 +48,10 @@ def find_afterparties():
 
         payload = {
                     'token': os.environ['EVENTBRITE_TOKEN'],
+                    'q': query,
+                    'location.address': location,
+                    'location.within': distance,
+                    'sort_by': sort
                     # 'key': os.environ['EVENTBRITE_KEY'],
                     # 'secret': os.environ['EVENTBRITE_SECRET']
         }
