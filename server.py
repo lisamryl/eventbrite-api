@@ -100,14 +100,22 @@ def create_eventbrite_event():
 
     payload = {
                 'token': os.environ['EVENTBRITE_TOKEN'],
+                'event.name.html': name,
+                'event.start.utc': start_time,
+                'event.end.utc': end_time,
+                'event.start.timezone': timezone,
+                'event.end.timezone': timezone,
+                'event.currency': currency
                     # 'key': os.environ['EVENTBRITE_KEY'],
                     # 'secret': os.environ['EVENTBRITE_SECRET']
     }
 
     headers = {'Authorization': 'Bearer ' + os.environ['EVENTBRITE_TOKEN']}
 
-    response = requests.post('https://www.eventbriteapi.com/v3/events',
+    response = requests.post('https://www.eventbriteapi.com/v3/events/',
                              data=payload, headers=headers)
+
+    import pdb; pdb.set_trace()
 
         #### UNCOMMENT THIS once you make your request! #####
     if response.ok:
@@ -134,14 +142,11 @@ def show_my_events():
                     # 'secret': os.environ['EVENTBRITE_SECRET']
     }
 
-    response = requests.get('https://www.eventbriteapi.com/v3/events/search', params=payload)
+    response = requests.get('https://www.eventbriteapi.com/v3/events/me/', params=payload)
 
     data = response.json()
-    events = data['events']
 
-    data = {'This': ['Some', 'mock', 'JSON']} # Replace this with your response data
-
-    events_dict = {}
+    events_dict = data
 
     return render_template("my-events.html",
                            events=events_dict,
